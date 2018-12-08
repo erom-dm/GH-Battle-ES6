@@ -10,7 +10,6 @@
     ]
   },
   "scripts": {
-    // ES6 version
     "start": "webpack-dev-server --open",
     "build": "SET NODE_ENV='production' && webpack",
     "firebase-init": "firebase login && firebase init",
