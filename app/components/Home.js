@@ -1,5 +1,5 @@
-var React = require('react');
-var Link = require('react-router-dom').Link;
+let React = require('react');
+let Link = require('react-router-dom').Link;
 
 class Home extends React.Component{
     render(){
@@ -16,4 +16,5 @@ class Home extends React.Component{
     }
 }
 
+//t
 module.exports = Home;
