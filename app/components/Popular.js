@@ -1,35 +1,10 @@
-let React = require('react');
-let PropTypes = require('prop-types');
-let api = require('../utils/api');
-let Loading = require('./Loading');
-
-//regular components
-/*class SelectLanguage extends React.Component{
-    render(){
-        var languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
-        return(
-            <ul className="languages">
-                {languages.map(function(lang) {
-                    return(
-                        <li
-                            style = {lang === this.props.selectedLanguage ? {color: '#d05250'}: null}
-                            onClick = {this.props.onSelect.bind(null, lang)}
-                            key={lang}
-                        >
-                            {lang}
-                        </li>
-                    )
-                }, this)}
-            </ul>
-        )
-    }
-}*/
-
-// functional stateless component
-
+const React = require('react');
+const PropTypes = require('prop-types');
+const api = require('../utils/api');
+const Loading = require('./Loading');
 
 function SelectLanguage(props){
-    let languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
+    const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
 
     return(
         <ul className="languages">
@@ -106,20 +81,14 @@ class Popular extends React.Component {
 
     updateLanguage(lang){
         // .setState always triggers a rerender of the page, based on the new state !
-        this.setState(() => {
-            return{
+        this.setState(() => ({
                 selectedLanguage: lang,
                 repos: null,
-            }
-        });
+        }));
 
         api.fetchPopularRepos(lang)
             .then((repos) => {
-                this.setState(() => {
-                    return{
-                        repos: repos
-                    }
-                })
+                this.setState(() => ({repos: repos}))
             })
     }
 
