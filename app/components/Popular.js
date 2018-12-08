@@ -1,7 +1,7 @@
-var React = require('react');
-var PropTypes = require('prop-types');
-var api = require('../utils/api');
-var Loading = require('./Loading');
+let React = require('react');
+let PropTypes = require('prop-types');
+let api = require('../utils/api');
+let Loading = require('./Loading');
 
 //regular components
 /*class SelectLanguage extends React.Component{
@@ -29,11 +29,11 @@ var Loading = require('./Loading');
 
 
 function SelectLanguage(props){
-    var languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
+    let languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
 
     return(
         <ul className="languages">
-            {languages.map(function(lang){
+            {languages.map((lang) => {
                 return(
                 <li
                     style = {lang === props.selectedLanguage ? {color: '#d05250'}: null}
@@ -51,7 +51,7 @@ function SelectLanguage(props){
 function RepoGrid(props) {
     return(
         <ul className="popular-list">
-            {props.repos.map(function (repo, index) {
+            {props.repos.map((repo, index) => {
                 return (
                 <li
                     key={repo.name}
@@ -61,7 +61,7 @@ function RepoGrid(props) {
                     <ul className="space-list-items">
                         <li>
                             <a href={repo.html_url}>
-                                <img className="avatar" src={repo.owner.avatar_url} alt={'Avatar for ' + repo.owner.login}/>
+                                <img className="avatar" src={repo.owner.avatar_url} alt={`Avatar for ${repo.owner.login}`}/>
                             </a>
                         </li>
                         <li>
@@ -106,7 +106,7 @@ class Popular extends React.Component {
 
     updateLanguage(lang){
         // .setState always triggers a rerender of the page, based on the new state !
-        this.setState(function(){
+        this.setState(() => {
             return{
                 selectedLanguage: lang,
                 repos: null,
@@ -114,13 +114,13 @@ class Popular extends React.Component {
         });
 
         api.fetchPopularRepos(lang)
-            .then(function(repos){
-                this.setState(function () {
+            .then((repos) => {
+                this.setState(() => {
                     return{
                         repos: repos
                     }
                 })
-            }.bind(this))
+            })
     }
 
     render(){
