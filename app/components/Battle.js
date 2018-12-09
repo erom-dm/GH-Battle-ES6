@@ -1,7 +1,7 @@
-let React = require('react');
-let PropTypes = require('prop-types');
-let Link = require('react-router-dom').Link;
-let PlayerPreview = require('./PlayerPreview');
+const React = require('react');
+const PropTypes = require('prop-types');
+const Link = require('react-router-dom').Link;
+const PlayerPreview = require('./PlayerPreview');
 
 
 class PlayerInput extends React.Component{
@@ -18,13 +18,9 @@ class PlayerInput extends React.Component{
     }
 
     handleChange(event){
-        let value = event.target.value;
+        const value = event.target.value;
 
-        this.setState(() => {
-            return {
-                username: value
-            }
-        })
+        this.setState(() => ({username: value}))
     }
 
     handleSubmit(event){
@@ -37,23 +33,26 @@ class PlayerInput extends React.Component{
     }
 
     render(){
+        const {username} = this.state;
+        const {label} = this.props;
+
         return(
             <form className='column' onSubmit={this.handleSubmit}>
                 <label className='header' htmlFor='username'>
-                    {this.props.lable}
+                    {label}
                 </label>
                 <input id='username'
                        placeholder='github username'
                        autoComplete='off'
                        type="text"
-                       value={this.state.username}
+                       value={username}
                        onChange={this.handleChange}
 
                 />
                 <button
                     className='button'
                     type='submit'
-                    disabled = {!this.state.username}
+                    disabled = {!username}
                 >
                     Submit
                 </button>
@@ -86,31 +85,24 @@ class Battle extends React.Component{
 
 
     handleSubmit(id, username){
-        this.setState(() => {
-            let newState = {};
-            newState[id + 'Name'] = username;
-            newState[id + 'Image'] = `https://github.com/${username}.png?size=200`;
-            return newState;
-        });
+        this.setState(() => ({
+            [id + 'Name']: username,
+            [id + 'Image']: `https://github.com/${username}.png?size=200`
+        }))
+
     }
 
     handleReset(id){
-        this.setState(() => {
-            let newState = {};
-            newState[id + 'Name'] = '';
-            newState[id + 'Image'] = null;
-            return newState;
-        })
+        this.setState(() => ({
+            [id + 'Name']: '',
+            [id + 'Image']: null
+        }))
     }
 
 
     render(){
-        let match = this.props.match;
-        let playerOneName = this.state.playerOneName;
-        let playerTwoName = this.state.playerTwoName;
-        let playerOneImage = this.state.playerOneImage;
-        let playerTwoImage = this.state.playerTwoImage;
-
+        const {match} = this.props;
+        const {playerOneName, playerTwoName, playerOneImage, playerTwoImage} = this.state;
 
         return(
             <div>
@@ -129,7 +121,7 @@ class Battle extends React.Component{
                     >
                         <button
                             className="reset"
-                            onClick={this.handleReset.bind(null, 'playerOne')}
+                            onClick={() => this.handleReset('playerOne')}
                         >
                             Reset
                         </button>
@@ -149,7 +141,7 @@ class Battle extends React.Component{
                     >
                         <button
                             className="reset"
-                            onClick={this.handleReset.bind(null, 'playerTwo')}
+                            onClick={() => this.handleReset('playerTwo')}
                         >
                             Reset
                         </button>
