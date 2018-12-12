@@ -60,21 +60,16 @@ SelectLanguage.propTypes = {
 
 class Popular extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedLanguage: 'All',
-            repos: null
-        };
-
-        this.updateLanguage = this.updateLanguage.bind(this);
-    }
+    state = {
+        selectedLanguage: 'All',
+        repos: null
+    };
 
     componentDidMount(){
         this.updateLanguage(this.state.selectedLanguage);
     }
 
-    updateLanguage(lang){
+    updateLanguage = (lang) => {
         // .setState always triggers a rerender of the page, based on the new state !
         this.setState(() => ({
                 selectedLanguage: lang,
@@ -83,7 +78,7 @@ class Popular extends React.Component {
 
         fetchPopularRepos(lang)
             .then((repos) => {this.setState(() => ({repos}))})
-    }
+    };
 
     render(){
         const {selectedLanguage, repos} = this.state;
